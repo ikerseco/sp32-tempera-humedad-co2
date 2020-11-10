@@ -153,28 +153,26 @@ void setup()
 void onConnectionEstablished() {
   client.subscribe("test", [] (const String &payload)  {
     Serial.println(payload);
-    delay(2000);
-    String tempe1 = scanTenperature1();
-    delay(2000);
-    String humi1 = scanHumidity1();
-    delay(2000);
-    boolean datMq1 = MQ2(1100,PIN16,PIN36);
-    delay(500);
-    Serial.println("DHT1 tenperature: "+tempe1);
-    Serial.println("DHT1 humidity: "+humi1);
-    String DatTotal = tempe1+"/"+humi1+"/"+datMq1;
-    Serial.println(DatTotal);
-    //client.publish("test",DatTotal);
   });
 }
+
 
 
 void loop()
 {
     client.loop();
-   // delay(5000);
-    //boolean datMq1 = MQ2(1100,PIN16,PIN36);
-    //int analogSensor = analogRead(36);
-    //Serial.println(analogSensor);
-   // delay(5000);
+    long now = millis();
+    if (now - 0 > 15000) {
+        Serial.println("procesing...");
+        String tempe1 = scanTenperature1();
+        delay(2000);
+        String humi1 = scanHumidity1();
+        delay(2000);
+        boolean datMq1 = MQ2(1100,PIN16,PIN36);
+        delay(2000);
+        Serial.println("DHT1 tenperature: "+tempe1);
+        Serial.println("DHT1 humidity: "+humi1);
+        String DatTotal = tempe1+"/"+humi1+"/"+datMq1;
+        Serial.println(DatTotal);
+    }
 }
