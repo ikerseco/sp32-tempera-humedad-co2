@@ -121,12 +121,12 @@ boolean MQ2(int Media,int buzzer,int analog){
    delay(500);
    if (analogSensor > Media){
       Serial.println("GAS:"+ String(analogSensor));
-      buzzerAL(buzzer,true,200,100);
+      buzzerAL(buzzer,true,100,10);
       return boolean(true);
     }
     else{
       Serial.println("GAS:"+ String(analogSensor));
-      buzzerAL(buzzer,false,200,100); 
+      buzzerAL(buzzer,false,100,10); 
       return boolean(false);
     }
 }
