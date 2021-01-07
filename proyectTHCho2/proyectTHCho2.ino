@@ -1,3 +1,5 @@
+
+
 /*
  *  This sketch demonstrates how to scan WiFi networks.
  *  The API is almost the same as with the WiFi Shield library,
@@ -7,6 +9,8 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <EspMQTTClient.h>
+#include <ArduinoJson.h>
+
 
 
 
@@ -25,7 +29,7 @@ EspMQTTClient client(
   "EUSKALTEL_D0011768",
   "HGWMUUWJ",
   "192.168.0.14",  // MQTT Broker server ip
-  "TestClient",// Client name that uniquely identify your device
+  "Co2HuTenp",// Client name that uniquely identify your device
   1883
   );
 
@@ -172,7 +176,8 @@ void loop()
         delay(2000);
         Serial.println("DHT1 tenperature: "+tempe1);
         Serial.println("DHT1 humidity: "+humi1);
-        String DatTotal = tempe1+"/"+humi1+"/"+datMq1;
+        delay(2000);
+        String DatTotal = tempe1+"/"+humi1+"/";
         Serial.println(DatTotal);
     }
 }
