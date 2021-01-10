@@ -140,7 +140,7 @@ boolean MQ2(int Media,int buzzer,int analog){
 void setup()
 {
     Serial.begin(115200);
-     client.enableDebuggingMessages();//
+    client.enableDebuggingMessages();//mensge mqtt enable
     //led digital
     pinMode(PIN0,OUTPUT);
     //buzzer corriente activa Digital OUTPUT
@@ -150,14 +150,25 @@ void setup()
     //pinMode(PIN4,OUTPUT);
     //conesionWifi
     delay(5000);
-    client.loop();
 }
 
-
+boolean Vmesage = true;  
 void onConnectionEstablished() {
-  client.subscribe("test", [] (const String &payload)  {
+  String mac = WiFi.macAddress().c_str();
+  client.publish("arduino/mac",mac);
+  client.subscribe("arduino/"+String(mac), [] (const String &payload){                                                         
+     client.publish("arduino/data","datos arduino");                                                                 
+  }
+  /*
+  client.subscribe("arduino", [] (const String &payload)  {
+    String mac = WiFi.macAddress().c_str();
     Serial.println(payload);
-  });
+    if(Vmac){
+       client.publish("arduino/mac",mac);
+       Vmac = false 
+    }
+  });*/
+
 }
 
 
@@ -165,9 +176,9 @@ void onConnectionEstablished() {
 void loop()
 {
     client.loop();
-    long now = millis();
-    if (now - 0 > 15000) {
-        Serial.println("procesing...");
+   // long now = millis();
+   /* if (now - 0 > 15000) {
+        Serial.println("procesing ok");
         String tempe1 = scanTenperature1();
         delay(2000);
         String humi1 = scanHumidity1();
@@ -178,6 +189,7 @@ void loop()
         Serial.println("DHT1 humidity: "+humi1);
         delay(2000);
         String DatTotal = tempe1+"/"+humi1+"/";
+        sendMesv = true;
         Serial.println(DatTotal);
-    }
+    }*/
 }
