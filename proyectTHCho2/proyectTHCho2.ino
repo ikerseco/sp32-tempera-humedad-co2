@@ -10,6 +10,7 @@
 #include <DHT.h>
 #include <EspMQTTClient.h>
 #include <ArduinoJson.h>
+#include <SimpleTimer.h> //set timer
 
 
 
@@ -26,9 +27,9 @@ int PIN36 = 36;
 
 //mqtt
 EspMQTTClient client(
-  "EUSKALTEL_D0011768",
-  "HGWMUUWJ",
-  "192.168.0.14",  // MQTT Broker server ip
+  "WLAN_EFI13",//wlan_efi32
+  "claveWIFI32",//claveWIFI32
+  "192.168.10.30",  // MQTT Broker server ip
   "Co2HuTenp",// Client name that uniquely identify your device
   1883
   );
@@ -158,7 +159,11 @@ void onConnectionEstablished() {
   client.publish("arduino/mac",mac);
   client.subscribe("arduino/"+String(mac), [] (const String &payload){                                                         
      client.publish("arduino/data","datos arduino");                                                                 
-  }
+  });
+  /*
+  client.subscribe("arduino/"+String(mac), [] (const String &payload){                                                         
+     client.publish("arduino/data","datos arduino");                                                                 
+  };*/
   /*
   client.subscribe("arduino", [] (const String &payload)  {
     String mac = WiFi.macAddress().c_str();
