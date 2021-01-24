@@ -27,9 +27,9 @@ int PIN36 = 36;
 
 //mqtt
 EspMQTTClient client(
-  "WLAN_EFI13",//wlan_efi32
-  "claveWIFI32",//claveWIFI32
-  "192.168.10.30",  // MQTT Broker server ip
+  "EUSKALTEL_D0011768",//wlan_efi32
+  "HGWMUUWJ",//claveWIFI32
+  "192.168.0.14",  // MQTT Broker server ip
   "Co2HuTenp",// Client name that uniquely identify your device
   1883
   );
@@ -153,7 +153,6 @@ void setup()
     delay(5000);
 }
 
-boolean Vmesage = true;  
 void onConnectionEstablished() {
   String mac = WiFi.macAddress().c_str();
   client.publish("arduino/mac",mac);
@@ -181,8 +180,8 @@ void onConnectionEstablished() {
 void loop()
 {
     client.loop();
-   // long now = millis();
-   /* if (now - 0 > 15000) {
+    long now = millis();
+    if (now - 0 > 15000) {
         Serial.println("procesing ok");
         String tempe1 = scanTenperature1();
         delay(2000);
@@ -194,7 +193,6 @@ void loop()
         Serial.println("DHT1 humidity: "+humi1);
         delay(2000);
         String DatTotal = tempe1+"/"+humi1+"/";
-        sendMesv = true;
         Serial.println(DatTotal);
-    }*/
+    }
 }
